@@ -1,0 +1,22 @@
+<div class="jumbotron">
+  <form name="rng" novalidate>
+    <h3>Enter you date of birth</h3>
+    <br>
+    <div class="row form-group">
+      <input type="date" name="dob" ng-model="userDob"  max="{{datepermited}}">
+    </div>
+    <div class="row form-group">
+      <a name="random" class="btn btn-lg btn-success" ng-click="getRandom(userDob); show=true" ng-disabled="!rng.dob.$dirty && !rng.dob.$invalid">Random <span class="glyphicon glyphicon-ok"></span></a>
+    </div>
+    <div ng-show="show">
+      <input type="text" class="label-rounded text-center" ng-model="number1" readonly>
+      <input type="text" class="label-rounded text-center" ng-model="number2" readonly>
+      <input type="text" class="label-rounded text-center" ng-model="number3" readonly>
+      <input type="text" class="label-rounded text-center" ng-model="number4" readonly>
+      <input type="text" class="label-rounded text-center" ng-model="number5" readonly>
+      <input type="text" class="label-rounded background-red text-center" ng-model="powerball" readonly>
+    </div>
+  </form>
+</div>
+
+

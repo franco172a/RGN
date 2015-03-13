@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/bootstrap-superhero.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <script type="text/javascript" src="cordova.js"></script>
+  </head>
+  <body ng-app="rngApp">
+   
+    <!-- Add your site or application content here -->
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Lucky Number Generator</h3>
+          <button type="button" class="btn btn-info" onclick="takePicture()">Take Picture</button>
+          <button type="button" class="btn btn-info" onclick="openScanner()">Open Barcode Scanner</button>
+      </div>
+        
+      <div class="footer">
+        <p></p>
+      </div>
+    </div>
+
+
+     <script type="text/javascript">
+         
+           var pictureSource;   // picture source
+  var destinationType; // sets the format of returned value 
+  document.addEventListener("deviceready", onDeviceReady, false);        
+  // Cordova is ready to be used!
+  function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+  }
+         
+         function onFail(message) {
+             alert(message);
+        }
+         
+         function takePicture() {
+             
+            try
+              {
+                navigator.camera.getPicture(
+                function(data){
+                  var imageObj = { 
+                    Id : null,
+                    Data : data,
+                    size:25,
+                    name:'name',
+                    description:'Description',
+                    type:".jpg" ,
+                    WebDelAllowed:true,
+                    WebDeletionAllowed:true
+                  };
+
+//                  imageToSave.style.display = 'block';
+//                  imageToSave.src = "data:image/jpeg;base64," + imageObj.Data;
+//                  vm.selectedImage = imageObj;
+
+                  },
+                  onFail,
+                  { quality: 20, 
+                      destinationType: destinationType.DATA_URL
+                  });
+              }
+              catch(err)
+                {
+                  //imageToSave.style.display = "none";
+                    alert(err);
+                }
+    
+  };
+         
+         
+         function openScanner() {
+
+            try
+              {
+                cordova.plugins.barcodeScanner.scan(
+                  function (result) {
+//                      alert("We got a barcode\n" +
+//                            "Result: " + result.text + "\n" +
+//                            "Format: " + result.format + "\n" +
+//                            "Cancelled: " + result.cancelled);
+                      
+                      window.location.assign(result);
+                  }, 
+                  function (error) {
+                      alert("Scanning failed: " + error);
+                  }
+               );
+              }
+              catch(err)
+                {
+                    alert(err);
+                }
+    
+  };
+       
+    </script>
+    
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+   
+</body>
+</html>
